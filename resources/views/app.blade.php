@@ -5,12 +5,14 @@
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="ie=edge" http-equiv="X-UA-Compatible">
-	<title>{{ $title ?? 'amonus' }}</title>
+	<title>{{ 'LaraCRUD' . (isset($title) ? " | ${title}" : '') }}</title>
+	@yield('style')
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
-    
+<body style="background: lightgray">
+	@yield('content')
+	@yield('script')
 </body>
 
 </html>

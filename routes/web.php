@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('/posts', \App\Http\Controllers\PostController::class);
+
 Route::get('/test', function () {
     return view('app', [
         'title' => 'Test',
