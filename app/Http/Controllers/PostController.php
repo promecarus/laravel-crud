@@ -25,7 +25,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create', [
+            'title' => 'Create Post',
+        ]);
     }
 
     /**
@@ -33,7 +35,22 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $this->validate($request, [
+            'image'     => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'title'     => 'required|min:5',
+            'content'   => 'required|min:10'
+        ]);
+
+        $image = $request->file('image');
+        $image->storeAs('public/posts', $image->hashName());
+
+        Post::create([
+            'image'     => $image->hashName(),
+            'title'     => $request->title,
+            'content'   => $request->content
+        ]);
+
+        return redirect()->route('posts.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     /**
